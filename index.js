@@ -56,7 +56,10 @@ function get_formatted_date(chosen_date_format) {
   }
 }
 
-function ro_formatted(str_length = 6, chosen_date_format = "default") {
+export default function ro_formatted(
+  str_length = 6,
+  chosen_date_format = "default"
+) {
   const errors = [];
 
   if (typeof str_length !== "number") {
