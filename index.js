@@ -92,4 +92,4 @@ function ro_formatted(str_length = 6, chosen_date_format = "default") {
   )}`;
 }
 
-console.log(ro_formatted("aca", "brit"));
+// console.log(ro_formatted("a", "brit"));
