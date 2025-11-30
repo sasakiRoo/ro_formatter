@@ -3,7 +3,7 @@
 A lightweight utility library for generating random strings paired with formatted dates.  
 Includes built-in input validation with colorized error messages powered by **chalk**.
 
-> **Current Version:** `1.0.0`  
+> **Current Version:** `1.0.1`  
 > **Status:** Early release — contains one known issue to be fixed in upcoming versions.
 
 ---
@@ -22,8 +22,8 @@ npm i ro_string_formatter
 
 - Generate a randomized lowercase string (6–8 characters)
 - Append a formatted date to the string
-- Supports two date formats:  
-  - `"default"` → `DD/MM/YYYY`  
+- Supports two date formats:
+  - `"default"` → `DD/MM/YYYY`
   - `"usa"` → `MM/DD/YYYY`
 - Helpful error messages with colored output using **chalk**
 - Basic parameter type-checking
@@ -54,16 +54,16 @@ Returns a formatted string composed of:
 
 #### Parameters
 
-| Name                  | Type   | Description                                      |
-|-----------------------|--------|--------------------------------------------------|
-| `str_length`          | number | Length of random string (must be **6–8**)        |
-| `chosen_date_format`  | string | Either `"default"` or `"usa"`                    |
+| Name                 | Type   | Description                               |
+| -------------------- | ------ | ----------------------------------------- |
+| `str_length`         | number | Length of random string (must be **6–8**) |
+| `chosen_date_format` | string | Either `"default"` or `"usa"`             |
 
 #### Examples
 
 ```js
 ro_formatted(7, "default"); // "asdkfop_30/11/2025"
-ro_formatted(8, "usa");     // "qwertyui_11/30/2025"
+ro_formatted(8, "usa"); // "qwertyui_11/30/2025"
 ```
 
 ---
