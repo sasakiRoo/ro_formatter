@@ -1,5 +1,17 @@
 import chalk from "chalk";
+import uuid from "./src/uuid.js";
 
+const ro_uuid = uuid;
+
+/**
+ * @typedef {"default" | "usa"} ChoosenDateFormat
+ */
+
+/**
+ * randomiseStr
+ * @param {number} len
+ * @returns {string}
+ */
 function randomiseStr(len) {
   const string_list = Array.from({ length: 26 }, (_, i) =>
     String.fromCharCode(97 + i)
@@ -21,21 +33,26 @@ function randomiseStr(len) {
       )}, yet we got ${chalk.red(len)}`
     );
   }
-  if (len > 8) {
-    throw new Error(
-      `value ${chalk.blue("str_length")} should never start above ${chalk.green(
-        "8"
-      )}, yet we got ${chalk.red(len)}`
-    );
-  }
-  return "";
+  throw new Error(
+    `value ${chalk.blue("str_length")} should never start above ${chalk.green(
+      "8"
+    )}, yet we got ${chalk.red(len)}`
+  );
 }
 
+/**
+ * get_formatted_date
+ * @param {ChoosenDateFormat} chosen_date_format
+ * @returns {string}
+ */
 function get_formatted_date(chosen_date_format) {
   const date = new Date().getDate();
   const month = new Date().getMonth() + 1;
   const year = new Date().getFullYear();
 
+  /**
+   * @type {ChoosenDateFormat[]} accepted_format
+   */
   const accepted_format = ["default", "usa"];
 
   if (!accepted_format.includes(chosen_date_format)) {
@@ -48,14 +65,19 @@ function get_formatted_date(chosen_date_format) {
     );
   }
 
-  if (chosen_date_format === accepted_format[0]) {
-    return `${date}/${month}/${year}`;
-  }
-  if (chosen_date_format === accepted_format[1]) {
-    return `${month}/${date}/${year}`;
+  switch (chosen_date_format) {
+    case accepted_format[1]:
+      return `${month}/${date}/${year}`;
+    default:
+      return `${date}/${month}/${year}`;
   }
 }
-
+/**
+ * ro_formatted
+ * @param {number} str_length
+ * @param {ChoosenDateFormat | undefined} chosen_date_format
+ * @returns
+ */
 export default function ro_formatted(
   str_length = 6,
   chosen_date_format = "default"
@@ -86,13 +108,14 @@ export default function ro_formatted(
     throw new Error(errors[0]);
   }
 
-  if (errors[1]) {
-    throw new Error(errors[1]);
-  }
-
   return `${randomiseStr(str_length)}_${get_formatted_date(
     chosen_date_format
   )}`;
 }
 
-// console.log(ro_formatted("a", "brit"));
+export { ro_uuid };
+
+// console.log(ro_formatted(12, "japan"));
+// for (let i = 0; i < 10; i++) {
+//   console.log(ro_uuid());
+// }
