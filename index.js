@@ -116,4 +116,6 @@ export default function ro_formatted(
 export { ro_uuid };
 
 // console.log(ro_formatted(12, "japan"));
-console.log(ro_uuid());
+// for (let i = 0; i < 10; i++) {
+//   console.log(ro_uuid());
+// }
