@@ -3,7 +3,7 @@
 A lightweight utility library for generating random strings paired with formatted dates.  
 Includes built-in input validation with colorized error messages powered by **chalk**.
 
-> **Current Version:** `1.0.1`  
+> **Current Version:** `1.1.1`  
 > **Status:** Early release — contains one known issue to be fixed in upcoming versions.
 
 ---
@@ -27,6 +27,20 @@ npm i ro_string_formatter
   - `"usa"` → `MM/DD/YYYY`
 - Helpful error messages with colored output using **chalk**
 - Basic parameter type-checking
+
+---
+
+---
+
+## ✨ New Features
+
+### - ro_uuid
+
+- generate randomised uui
+
+### - Husky Commit Convention
+
+### - Unit Test
 
 ---
 
