@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import uuid from "./src/uuid";
+import uuid from "./src/uuid.js";
 
 const ro_uuid = uuid;
 
@@ -116,4 +116,4 @@ export default function ro_formatted(
 export { ro_uuid };
 
 // console.log(ro_formatted(12, "japan"));
-// console.log(ro_uuid());
+console.log(ro_uuid());
