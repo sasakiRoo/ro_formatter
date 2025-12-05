@@ -1,5 +1,3 @@
-perbaiki markdown berikut, buat menjadi lebih profesional
-
 # todos
 
 # fixed
