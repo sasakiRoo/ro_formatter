@@ -59,11 +59,11 @@ describe("ro_formatted (current behavior)", () => {
 
   describe("value validation errors", () => {
     it("throws error when str_length < 6", () => {
-      expect(() => ro_formatted(5, "default")).toThrow(/6 and 8/);
+      expect(() => ro_formatted(5, "default")).toThrow(/6-8/);
     });
 
     it("throws error when str_length > 8", () => {
-      expect(() => ro_formatted(9, "usa")).toThrow(/6 and 8/);
+      expect(() => ro_formatted(9, "usa")).toThrow(/6-8/);
     });
 
     it("throws error when date format is invalid", () => {
@@ -71,7 +71,7 @@ describe("ro_formatted (current behavior)", () => {
     });
 
     it("throws combined value errors", () => {
-      expect(() => ro_formatted(9, "brit")).toThrow(/6 and 8.*is not accepted/);
+      expect(() => ro_formatted(9, "brit")).toThrow(/6-8.*is not accepted/);
     });
   });
 

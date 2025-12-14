@@ -43,10 +43,8 @@ function valueValidation(paramA, paramB) {
 
   if (limitLength) {
     errors.push(
-      `value of ${chalk.yellow(
-        "str_length"
-      )} should be in between of ${chalk.green(
-        "6 and 8"
+      `value of ${chalk.yellow("str_length")} should be a number ${chalk.green(
+        "6-8"
       )} and, yet we got ${chalk.red(paramA)}`
     );
   }

@@ -134,7 +134,7 @@ Examples:
 
 ```js
 ro_formatted(3);
-// Error: value of str_length should be in between of 6 and 8 and, yet we got 3
+// Error: value of str_length should be a number 6-8 and, yet we got 3
 ```
 
 ```js
