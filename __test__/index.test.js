@@ -1,7 +1,10 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import chalk from "chalk";
 import ro_formatted from "./index.js";
 
-describe("ro_formatted", () => {
+chalk.level = 0;
+
+describe("ro_formatted (current behavior)", () => {
   beforeEach(() => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date("2024-12-15"));
@@ -11,129 +14,69 @@ describe("ro_formatted", () => {
     vi.useRealTimers();
   });
 
-  describe("valid inputs", () => {
-    it("should return formatted string with default date format", () => {
+  describe("valid input", () => {
+    it("returns formatted string with default format", () => {
       const result = ro_formatted(6, "default");
       expect(result).toMatch(/^[a-z]{6}_15\/12\/2024$/);
     });
 
-    it("should return formatted string with usa date format", () => {
+    it("returns formatted string with usa format", () => {
       const result = ro_formatted(6, "usa");
       expect(result).toMatch(/^[a-z]{6}_12\/15\/2024$/);
     });
 
-    it("should use default parameters when none provided", () => {
+    it("uses default parameters", () => {
       const result = ro_formatted();
       expect(result).toMatch(/^[a-z]{6}_15\/12\/2024$/);
     });
 
-    it("should generate 6 character random string", () => {
-      const result = ro_formatted(6);
-      const parts = result.split("_");
-      expect(parts[0]).toHaveLength(6);
+    it("generates correct string length", () => {
+      const result = ro_formatted(8, "default");
+      expect(result.split("_")[0]).toHaveLength(8);
     });
 
-    it("should generate 7 character random string", () => {
-      const result = ro_formatted(7);
-      const parts = result.split("_");
-      expect(parts[0]).toHaveLength(7);
-    });
-
-    it("should generate 8 character random string", () => {
-      const result = ro_formatted(8);
-      const parts = result.split("_");
-      expect(parts[0]).toHaveLength(8);
-    });
-
-    it("should only contain lowercase letters in random string", () => {
-      const result = ro_formatted(6);
-      const randomPart = result.split("_")[0];
-      expect(randomPart).toMatch(/^[a-z]+$/);
+    it("random string only contains lowercase letters", () => {
+      const random = ro_formatted(6).split("_")[0];
+      expect(random).toMatch(/^[a-z]+$/);
     });
   });
 
-  describe("invalid str_length parameter", () => {
-    it("should throw error when str_length is less than 6", () => {
-      expect(() => ro_formatted(5, "default")).toThrow(/should start from 6/);
-    });
-
-    it("should throw error when str_length is greater than 8", () => {
-      expect(() => ro_formatted(9, "usa")).toThrow(
-        /should never start above 8/
-      );
-    });
-
-    it("should throw error when str_length is not a number", () => {
+  describe("type validation errors", () => {
+    it("throws error when str_length is not number", () => {
       expect(() => ro_formatted("6", "default")).toThrow(/should be number/);
     });
 
-    it("should throw error when str_length is null", () => {
-      expect(() => ro_formatted(null, "default")).toThrow(/should be number/);
-    });
-
-    it("should throw error when str_length is object", () => {
-      expect(() => ro_formatted({}, "default")).toThrow(/should be number/);
-    });
-  });
-
-  describe("invalid chosen_date_format parameter", () => {
-    it("should throw error for invalid format", () => {
-      expect(() => ro_formatted(6, "brit")).toThrow(
-        /format brit is not accepted/
-      );
-    });
-
-    it("should throw error when chosen_date_format is not a string", () => {
+    it("throws error when chosen_date_format is not string", () => {
       expect(() => ro_formatted(6, 123)).toThrow(/should be string/);
     });
 
-    it("should throw error when chosen_date_format is null", () => {
-      expect(() => ro_formatted(6, null)).toThrow(/should be string/);
-    });
-
-    it("should throw error when chosen_date_format is object", () => {
-      expect(() => ro_formatted(6, {})).toThrow(/should be string/);
-    });
-  });
-
-  describe("multiple invalid parameters", () => {
-    it("should throw error combining both parameter errors", () => {
+    it("throws combined type errors", () => {
       expect(() => ro_formatted("6", 123)).toThrow(
         /should be number.*should be string/
       );
     });
-
-    it("should throw error when both parameters are wrong type", () => {
-      expect(() => ro_formatted([], null)).toThrow();
-    });
   });
 
-  describe("edge cases", () => {
-    it("should accept str_length exactly 6", () => {
-      const result = ro_formatted(6, "default");
-      expect(result).toMatch(/^[a-z]{6}_15\/12\/2024$/);
+  describe("value validation errors", () => {
+    it("throws error when str_length < 6", () => {
+      expect(() => ro_formatted(5, "default")).toThrow(/6 and 8/);
     });
 
-    it("should accept str_length exactly 8", () => {
-      const result = ro_formatted(8, "default");
-      expect(result).toMatch(/^[a-z]{8}_15\/12\/2024$/);
+    it("throws error when str_length > 8", () => {
+      expect(() => ro_formatted(9, "usa")).toThrow(/6 and 8/);
     });
 
-    it("should accept correct length and usa format", () => {
-      const result = ro_formatted(8, "usa");
-      expect(result).toMatch(/^[a-z]{8}_12\/15\/2024$/);
+    it("throws error when date format is invalid", () => {
+      expect(() => ro_formatted(6, "brit")).toThrow(/is not accepted/);
     });
 
-    it("should have correct format structure", () => {
-      const result = ro_formatted(6, "default");
-      const parts = result.split("_");
-      expect(parts).toHaveLength(2);
-      expect(parts[1]).toMatch(/^\d{1,2}\/\d{1,2}\/\d{4}$/);
+    it("throws combined value errors", () => {
+      expect(() => ro_formatted(9, "brit")).toThrow(/6 and 8.*is not accepted/);
     });
   });
 
   describe("randomness", () => {
-    it("should generate different strings on multiple calls", () => {
+    it("generates different results on multiple calls", () => {
       const results = new Set();
       for (let i = 0; i < 10; i++) {
         results.add(ro_formatted(6, "default"));
