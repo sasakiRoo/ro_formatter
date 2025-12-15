@@ -3,7 +3,7 @@
 A lightweight utility library for generating random strings paired with formatted dates.  
 Includes built-in input validation with colorized error messages powered by **chalk**.
 
-> **Current Version:** `2.0.0`
+> **Current Version:** `2.0.3`
 
 ---
 
@@ -142,7 +142,7 @@ ro_formatted(6, "japan");
 
 ## 📌 Notes
 
-- This is **version 2.0.0**
+- This is **version 2.0.3**
 - Contributions, suggestions, and issue reports are welcome once the GitHub repository is made public.
 
 ---
