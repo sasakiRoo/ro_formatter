@@ -17,7 +17,11 @@ npm i ro_string_formatter
 
 ---
 
+---
+
 ## ✨ Features
+
+### 🎲 Generate formatted string randomly - ro_formatted
 
 - Generate a randomized lowercase string (6–8 characters)
 - Append a formatted date to the string
@@ -26,14 +30,6 @@ npm i ro_string_formatter
   - `"usa"` → `MM/DD/YYYY`
 - Helpful error messages with colored output using **chalk**
 - Basic parameter type-checking
-
----
-
----
-
-## ✨ New Features
-
-### 🎲 Generate formatted string randomly - ro_formatted
 
 ```javascript
 // Example output: abczef_28/11/2025
